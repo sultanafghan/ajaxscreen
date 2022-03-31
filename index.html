@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Capture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="icons.png" type="image/png">
+    <!-- image croper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.min.css">
+
+    <style>
+        body {
+            text-align: center;
+            background: #0077b6;
+            font-family: 'Raleway', sans-serif;
+
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #caf0f8;
+        }
+
+        #website {
+            width: 36%;
+            height: 44px;
+            border: none;
+            border-radius: 23px;
+            padding-left: 26px;
+        }
+
+        #website:hover {
+            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.26);
+        }
+
+        #btn {
+            width: 200px;
+            height: 50px;
+            font-size: 25px;
+            background: #03045e;
+            border: none;
+            border-radius: 44px;
+            color: #caf0f8;
+            transition: all 0.5s ease-out;
+
+            /* transition: ; */
+        }
+
+        #btn:hover {
+            background: #caf0f8;
+            color: #03045e;
+            border: 1px solid #03045e;
+            cursor: pointer;
+        }
+
+        #download {
+            font-weight: bold;
+            display: none;
+            padding: 13px;
+            text-decoration: none;
+            font-size: 15px;
+            background: #caf0f8;
+            border: none;
+            border-radius: 44px;
+            color: #03045e;
+            transition: all 0.5s ease-out;
+        }
+
+        #download:hover {
+            background: #03045e;
+            color: #caf0f8;
+            border: 1px solid #caf0f8;
+            cursor: pointer;
+        }
+
+        #img {
+            display: none;
+        }
+
+        #loadingMsg {
+            color: #caf0f8;
+            font-weight: bold;
+            display: inline !important;
+        }
+
+        #loadingGif {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Website Screenshot</h1>
+    <input type="text" id="website" placeholder="https://www.example.com" required>
+    <p><img src="ball.gif" width="17px" id="loadingGif"><span id="loadingMsg"> Click To Capture</span> </p>
+    <br><br>
+    <button id="btn">Capture</button>
+    <br><br>
+    <a href="" id="download" target="_blank">Download Image</a>
+    <br><br>
+    <div style="width: 200px; height: 300px;">
+        <img src="" alt="website screenshot" id="img">
+    </div>
+
+
+    <p style="color: white;">Made by Saboor "bahawi"</p>
+
+    <!-- image croper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.js"></script>
+    <script>
+        document.getElementById('btn').addEventListener('click', captureImage);
+
+        // create new xhr object 
+        xhr = new XMLHttpRequest();
+        function captureImage() {
+
+            var input = document.getElementById('website').value;
+            var download = document.getElementById('download');
+            var img = document.getElementById('img');
+            var image = document.getElementById('image');
+
+            var loadingMsg = document.getElementById('loadingMsg');
+            var loadingGif = document.getElementById('loadingGif');
+
+
+            // change the loadingMsg display
+            loadingMsg.style = 'display:block';
+            loadingMsg.innerHTML = 'Loading: ' + input;
+            loadingGif.style = 'display:inline';
+
+            // &viewport=1440x900&width=250
+            // 292d48ca6d959108a6ac97d38aac940d
+            // dc605431168b2d2ac6abe250533a5028
+            var api = 'http://api.screenshotlayer.com/api/capture?';
+            var access_key = '84786602e464c3f3beef0a94cdc4aebe';
+            var viewport = '';
+            var width = '';
+
+            var url = api + 'access_key=' + access_key + '&url=' + input + '&fullpage=1&force=1';
+            xhr.open('GET', url, true);
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    console.log(this.responseURL);
+
+                    // display image tag 
+                    img.style = 'display:inline';
+                    // set the response url to iamge tag
+                    img.src = this.responseURL;
+                    // display the download button 
+                    download.style = 'display:inline';
+
+                    // set download href to api responseurl
+                    download.href = this.responseURL;
+
+                    // Hide the loadingMsg 
+                    loadingMsg.innerHTML = "ScreenShot is ready for download";
+
+                    // hide loading gif
+                    loadingGif.style = 'display:none';
+
+
+
+
+
+
+                }
+            }
+            xhr.send();
+        }
+        xhr.onprograss = function () {
+            console.log("loding...");
+        }
+    </script>
+
+
+
+</body>
+
+</html>
