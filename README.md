@@ -9,4 +9,5 @@ https://screenshotlayer.com/
 
 <br/>
 For Demo ==>>https://sultanafghan.github.io/ajaxscreen/ <br/?
-![image](https://user-images.githubusercontent.com/46255405/161033635-65743d1e-44c5-4f04-86a9-b3f83304fe0c.png)
+
+![2022-04-02-19-37-sultanafghan github io](https://user-images.githubusercontent.com/46255405/161389419-dcebba14-7e89-450c-a865-b799a455b32f.png)
