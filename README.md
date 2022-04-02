@@ -1,4 +1,4 @@
-# ajaxscreen
+# website Screenshoot 
 Screenshoot any website 
 #ajax
 #javascript
